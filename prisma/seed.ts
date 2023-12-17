@@ -2,7 +2,8 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  const ford =  await prisma.marque.upsert({
+  const response = await Promise.all([
+    prisma.marque.upsert({
       where: { slug: 'ford' },
       update: {},
       create: {
@@ -25,8 +26,8 @@ async function main() {
           ],
         },          
       },
-    })
-    const mercedes = await prisma.marque.upsert({
+    }),
+    prisma.marque.upsert({
       where: { slug: 'mercedes' },
       update: {},
       create: {
@@ -49,8 +50,9 @@ async function main() {
           ],
         },
       },
-    })
-  console.log(ford, mercedes)
+    }),
+  ])
+  console.log(response)
 }
 main()
   .then(async () => {
@@ -60,4 +62,4 @@ main()
     console.error(e)
     await prisma.$disconnect()
     process.exit(1)
-})
+  })

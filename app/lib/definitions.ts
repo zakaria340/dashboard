@@ -86,3 +86,20 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+// Mycode
+export type Marque = {
+  id: string;
+  logo: string;
+  name: string;
+  slug: string;
+};
+
+// Mycode
+export type Model = {
+  id: string;
+  logo: string;
+  name: string;
+  slug: string;
+  marque: Marque
+};
